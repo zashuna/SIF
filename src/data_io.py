@@ -3,6 +3,7 @@ from __future__ import print_function
 import numpy as np
 import pickle
 from tree import tree
+import pdb
 #from theano import config
 
 def getWordmap(textfile):
@@ -42,6 +43,7 @@ def lookupIDX(words,w):
     elif 'UUUNKKK' in words:
         return words['UUUNKKK']
     else:
+        # This is basically a hack so that the weight is set to 1.
         return len(words) - 1
 
 def getSeq(p1,words):
@@ -196,6 +198,7 @@ def sentences2idx(sentences, words):
     :param words: a dictionary, words['str'] is the indices of the word 'str'
     :return: x1, m1. x1[i, :] is the word indices in sentence i, m1[i,:] is the mask for sentence i (0 means no word at the location)
     """
+    seq1 = []
     for i in sentences:
         seq1.append(getSeq(i,words))
     x1,m1 = prepare_data(seq1)
